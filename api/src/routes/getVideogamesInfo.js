@@ -66,7 +66,28 @@ const videogameById = async (id) => {
   }
 };
 
+const getGenres = async () => {
+  try {
+    let genresInfo = (
+      await axios.get(`https://api.rawg.io/api/genres?key=${API_KEY}`)
+    ).data.results;
+
+    genresInfo.map(
+      async (e) =>
+        await Genres.findOrCreate({
+          where: {
+            id: e.id,
+            name: e.name,
+          },
+        })
+    );
+  } catch (error) {
+    console.log(error);
+  }
+};
+
 module.exports = {
   videogamesAll,
   videogameById,
+  getGenres,
 };

@@ -22,22 +22,21 @@ const videogamesAll = async () => {
         through: { attributes: [] },
       },
     });
+    let allVideogamesInfo = getDBInfo
+      ? [...allVideogamesApi, ...getDBInfo]
+      : [...allVideogamesApi];
 
-    let formatedApiInfo = allVideogamesApi?.map((e) => {
+    let formatedApiInfo = allVideogamesInfo?.map((e) => {
       return {
         id: e.id,
         name: e.name,
-        image: e.background_image,
+        image: e.background_image ? e.background_image : e.image,
         rating: e.rating,
         genres: e.genres.map((e) => e.name),
       };
     });
 
-    let allVideogamesInfo = getDBInfo
-      ? [...formatedApiInfo, ...getDBInfo]
-      : [...formatedApiInfo];
-
-    return allVideogamesInfo;
+    return formatedApiInfo;
   } catch (error) {
     console.log(error);
   }

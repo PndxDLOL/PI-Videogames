@@ -7,7 +7,7 @@ const { videogamesAll, videogameById } = require("../routes/getVideogamesInfo");
 
 router.get("/", async (req, res) => {
   let allVideogames = await videogamesAll();
-  let { name } = req.body;
+  let { name } = req.query;
 
   if (!name) {
     try {
@@ -18,7 +18,7 @@ router.get("/", async (req, res) => {
   } else {
     try {
       let videogamesByName = await allVideogames.filter((e) =>
-        e.name.toLowerCase().includes(name.toStrig().toLowerCase())
+        e.name.toLowerCase().includes(name.toString().toLowerCase())
       );
       videogamesByName
         ? res.status(200).send(videogamesByName)

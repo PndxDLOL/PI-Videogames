@@ -4,7 +4,7 @@ const { Videogame, Genres } = require("../db");
 
 const videogamesAll = async () => {
   try {
-    let firstUrl = `https://api.rawg.io/api/games?key=${API_KEY}&page=2&page_size=40`;
+    let firstUrl = `https://api.rawg.io/api/games?key=${API_KEY}&page=1&page_size=40`;
 
     let firstData = (await axios.get(firstUrl)).data;
     let videogame_1 = await firstData.results;
@@ -54,7 +54,7 @@ const videogameById = async (id) => {
       name: info.name,
       image: info.background_image,
       genres: info.genres.map((e) => e.name),
-      description: info.description,
+      description: info.description_raw,
       released: info.released,
       rating: info.rating,
       platforms: info.platforms.map((e) => e.platform.name),
@@ -86,8 +86,44 @@ const getGenres = async () => {
   }
 };
 
+const getPlatforms = async () => {
+  try {
+    let platformsInfo = `https://api.rawg.io/api/games?key=${API_KEY}&page=1&page_size=40`;
+
+    let firstData = (await axios.get(platformsInfo)).data;
+    let videogame_1 = await firstData.results;
+    let secondData = (await axios.get(firstData.next)).data;
+    let videogame_2 = await secondData.results;
+    let thirdData = (await axios.get(secondData.next)).data;
+    let videogame_3 = await thirdData.results;
+
+    let allVideogamesApi = [...videogame_1, ...videogame_2, ...videogame_3];
+
+    let formatedPlatforms = [];
+
+    let getPlatformsVG = allVideogamesApi?.map((e) => {
+      return e.platforms.map((e) => e.platform.name);
+    });
+
+    for (let i = 0; i < getPlatformsVG.length; i++) {
+      for (let j = 0; j < getPlatformsVG[i].length; j++) {
+        if (!formatedPlatforms.includes(getPlatformsVG[i][j])) {
+          formatedPlatforms.push(getPlatformsVG[i][j]);
+        } else {
+          continue;
+        }
+      }
+    }
+
+    return formatedPlatforms;
+  } catch (error) {
+    console.log(error);
+  }
+};
+
 module.exports = {
   videogamesAll,
   videogameById,
   getGenres,
+  getPlatforms,
 };

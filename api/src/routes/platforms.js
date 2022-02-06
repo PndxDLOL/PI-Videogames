@@ -1,15 +1,12 @@
 const express = require("express");
 const router = express.Router();
-const { Genres } = require("../db");
-const { getGenres } = require("./getVideogamesInfo");
+const { getPlatforms } = require("./getVideogamesInfo");
 
 router.get("/", async (req, res) => {
   try {
-    await getGenres();
+    let platforms = await getPlatforms();
 
-    let genres = await Genres.findAll();
-
-    res.status(200).send(genres);
+    res.status(200).send(platforms);
   } catch (error) {
     console.log(error);
   }

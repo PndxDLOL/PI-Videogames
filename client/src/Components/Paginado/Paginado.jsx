@@ -14,7 +14,9 @@ export default function Paginado({
   return (
     <nav>
       {pageNumbers?.map((number) => (
-        <button onClick={() => paginado(number)}>{number}</button>
+        <button key={number} onClick={() => paginado(number)}>
+          {number}
+        </button>
       ))}
     </nav>
   );

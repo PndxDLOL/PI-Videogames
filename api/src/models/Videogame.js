@@ -26,7 +26,7 @@ module.exports = (sequelize) => {
           "https://estaticos.muyinteresante.es/media/cache/1140x_thumb/uploads/images/gallery/5daf1c7e5bafe8f8c03c986b/record-videojuegos_0.jpg",
       },
       released: {
-        type: DataTypes.DATE,
+        type: DataTypes.DATEONLY,
       },
       rating: {
         type: DataTypes.FLOAT,

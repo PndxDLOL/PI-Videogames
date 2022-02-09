@@ -39,7 +39,7 @@ router.get("/:id/", async (req, res) => {
       )
     ) {
       let dbSearch = await Videogame.findAll({
-        where: { id: id },
+        where: { id },
         include: [
           { model: Genres, attributes: ["name"], through: { attributes: [] } },
         ],
@@ -47,7 +47,7 @@ router.get("/:id/", async (req, res) => {
       if (!dbSearch) {
         return res.status(204).json({ msg: "not get videogame in db" });
       } else {
-        res.status(200).send(dbSearch);
+        res.status(200).send(dbSearch[0]);
       }
     } else {
       let apiSearch = await videogameById(id);

@@ -33,7 +33,9 @@ const videogamesAll = async () => {
         image: e.background_image ? e.background_image : e.image,
         rating: e.rating,
         genres: e.genres.map((e) => e.name),
-        platforms: e.platforms.map((e) => e.platform.name),
+        platforms: e.platforms.map((e) =>
+          e.platform?.name ? e.platform.name : e
+        ),
       };
     });
 

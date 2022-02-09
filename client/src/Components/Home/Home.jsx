@@ -13,6 +13,7 @@ import {
 } from "../../Redux/Actions";
 import Videogame from "../Videogame/Videogame";
 import Paginado from "../Paginado/Paginado";
+import SearchBar from "../SearchBar/SearchBar";
 
 export default function Home() {
   const dispatch = useDispatch();
@@ -22,7 +23,7 @@ export default function Home() {
   const allPlatforms = useSelector((state) => state.platforms);
   const [order, setOrder] = useState("");
   const [currentPage, setCurrentPage] = useState(1);
-  const [videogamesPerPage /* , setVideogamesPerPage */] = useState(15);
+  const [videogamesPerPage] = useState(15);
   const indexOfLastVideogame = currentPage * videogamesPerPage;
   const indexOfFirstVideogame = indexOfLastVideogame - videogamesPerPage;
   const currentVideogames = allVideogames.slice(
@@ -69,7 +70,7 @@ export default function Home() {
 
   return (
     <div>
-      <Link to="/recipe">Create a Videogame</Link>
+      <Link to="/videogame">Create a Videogame</Link>
       <button
         onClick={(e) => {
           handleOnClick(e);
@@ -77,6 +78,7 @@ export default function Home() {
       >
         Cargar Videojuegos
       </button>
+      <SearchBar />
       <div>
         <select onClick={(e) => handleFilterName(e)}>
           <option value="asc">A-Z</option>

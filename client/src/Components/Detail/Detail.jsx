@@ -18,10 +18,15 @@ export default function VideogameDetail() {
     <div>
       <h1>{videogame.name}</h1>
       <h5>{videogame.rating}</h5>
-      <img src={videogame.image} alt="recipe" width="200px" height="250px" />
+      <img
+        src={videogame.image}
+        alt={videogame.name}
+        width="200px"
+        height="250px"
+      />
       <h3>{videogame.description}</h3>
-      <h3>{videogame.genres?.map((e) => e + " ")}</h3>
-      <h3>{videogame.platforms?.map((e) => e + ", ")}</h3>
+      <h3>{videogame.genres?.map((e) => e.name)}</h3>
+      <h3>{videogame.platforms?.map((e) => e + " ")}</h3>
       <h3>{videogame.released}</h3>
       <Link to="/home">
         <h3>Regresar</h3>

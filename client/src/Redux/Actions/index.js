@@ -15,6 +15,23 @@ export function getVideogames() {
   };
 }
 
+export function getVideogameByName(name) {
+  return async function (dispatch) {
+    try {
+      var json = await axios.get(
+        `http://localhost:3001/videogames?name=${name}`
+      );
+
+      return dispatch({
+        type: "GET_VIDEOGAMES_NAME",
+        payload: json.data,
+      });
+    } catch (error) {
+      console.log(error);
+    }
+  };
+}
+
 export function getDetails(id) {
   return async function (dispatch) {
     try {
@@ -85,5 +102,12 @@ export function filterByName(payload) {
   return {
     type: "FILTER_BY_NAME",
     payload,
+  };
+}
+
+export function postVideogame(payload) {
+  return async function (dispatch) {
+    const post = await axios.post(`http://localhost:3001/videogame`, payload);
+    return post;
   };
 }

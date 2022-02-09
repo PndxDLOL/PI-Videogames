@@ -14,6 +14,11 @@ function rootReducer(state = initialstate, action) {
         videogames: action.payload,
         allVideogames: action.payload,
       };
+    case "GET_VIDEOGAMES_NAME":
+      return {
+        ...state,
+        videogames: action.payload,
+      };
     case "GET_DETAILS":
       return {
         ...state,
@@ -71,6 +76,10 @@ function rootReducer(state = initialstate, action) {
       return {
         ...state,
         videogames: videogamesSortedS,
+      };
+    case "POST_VIDEOGAME":
+      return {
+        ...state,
       };
     default:
       return state;

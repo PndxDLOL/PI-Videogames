@@ -80,15 +80,24 @@ export default function Home() {
       </button>
       <SearchBar />
       <div>
-        <select onClick={(e) => handleFilterName(e)}>
+        <select defaultValue="default" onClick={(e) => handleFilterName(e)}>
+          <option value="default" disabled>
+            Order Name:
+          </option>
           <option value="asc">A-Z</option>
           <option value="desc">Z-A</option>
         </select>
-        <select onClick={(e) => handleFilterScore(e)}>
+        <select defaultValue="default" onClick={(e) => handleFilterScore(e)}>
+          <option value="default" disabled>
+            Order Rating:
+          </option>
           <option value="asc">Más puntuado</option>
           <option value="desc">Menos puntuado</option>
         </select>
-        <select onClick={(e) => handleFilterGenre(e)}>
+        <select defaultValue="default" onClick={(e) => handleFilterGenre(e)}>
+          <option value="default" disabled>
+            Genres:
+          </option>
           <option value="all">All</option>
           {allGenres?.map((genre) => (
             <option key={genre.name} value={genre.name}>
@@ -96,7 +105,10 @@ export default function Home() {
             </option>
           ))}
         </select>
-        <select onClick={(e) => handleFilterPlatform(e)}>
+        <select defaultValue="default" onClick={(e) => handleFilterPlatform(e)}>
+          <option value="default" disabled>
+            Platforms
+          </option>
           <option value="all">All</option>
           {allPlatforms?.map((platform) => (
             <option key={platform} value={platform}>

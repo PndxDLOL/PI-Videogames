@@ -2,6 +2,7 @@ import React from "react";
 import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { getGenres, getPlatforms, postVideogame } from "../../Redux/Actions";
+import { Link } from "react-router-dom";
 
 function validatePost(post) {
   let error = {};
@@ -73,6 +74,19 @@ export default function VideogamePost() {
     );
   }
 
+  function handleDeleteG(g) {
+    setPost({
+      ...post,
+      genres: post.genres.filter((e) => e !== g),
+    });
+    setError(
+      validatePost({
+        ...post,
+        genres: [...post.genres],
+      })
+    );
+  }
+
   function handleOnSelectP(e) {
     if (!post.platforms.includes(e.target.value)) {
       setPost({
@@ -84,6 +98,19 @@ export default function VideogamePost() {
       validatePost({
         ...post,
         platforms: [...post.platforms, e.target.value],
+      })
+    );
+  }
+
+  function handleDeleteP(p) {
+    setPost({
+      ...post,
+      platforms: post.platforms.filter((e) => e !== p),
+    });
+    setError(
+      validatePost({
+        ...post,
+        platforms: [...post.platforms],
       })
     );
   }
@@ -156,6 +183,7 @@ export default function VideogamePost() {
               handleOnChange(e);
             }}
           />
+          {error.rating && <p>{error.rating}</p>}
         </div>
         <div>
           <label>Genres: </label>
@@ -175,6 +203,12 @@ export default function VideogamePost() {
             ))}
           </select>
           {error.genres && <p>{error.genres}</p>}
+          {post.genres?.map((g) => (
+            <div key={g}>
+              <p>{g}</p>
+              <button onClick={() => handleDeleteG(g)}>X</button>
+            </div>
+          ))}
         </div>
         <div>
           <label>Platforms: </label>
@@ -194,6 +228,12 @@ export default function VideogamePost() {
             ))}
           </select>
           {error.platforms && <p>{error.platforms}</p>}
+          {post.platforms?.map((p) => (
+            <div key={p}>
+              <p>{p}</p>
+              <button onClick={() => handleDeleteP(p)}>X</button>
+            </div>
+          ))}
         </div>
         <button
           type="submit"
@@ -204,6 +244,9 @@ export default function VideogamePost() {
           ¡Create!
         </button>
       </form>
+      <Link to="/home">
+        <button>Go Home</button>
+      </Link>
     </div>
   );
 }

@@ -2,7 +2,11 @@ const express = require("express");
 const router = express.Router();
 /* const axios = require("axios"); */
 const { Videogame, Genres } = require("../db");
-const { videogamesAll, videogameById } = require("../routes/getVideogamesInfo");
+const {
+  videogamesAll,
+  videogameById,
+  /*   videogameByName, */
+} = require("../routes/getVideogamesInfo");
 /* const {} */
 
 router.get("/", async (req, res) => {

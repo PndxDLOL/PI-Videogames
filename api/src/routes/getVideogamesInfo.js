@@ -1,6 +1,7 @@
 const axios = require("axios");
 const { API_KEY } = process.env;
 const { Videogame, Genres } = require("../db");
+/* const { Op } = require("sequelize"); */
 
 const videogamesAll = async () => {
   try {
@@ -44,6 +45,45 @@ const videogamesAll = async () => {
     console.log(error);
   }
 };
+
+/* const videogameByName = async (name) => {
+  try {
+    let getData = await axios.get(
+      `https://api.rawg.io/api/games?key=${API_KEY}&search=${name}`
+    ).data;
+    console.log(getData);
+
+    let nameData = getData.results;
+
+    let getDBInfoName = await Videogame.findAll({
+      include: Genres,
+      where: {
+        name: { [Op.iLike]: `%${name}%` },
+      },
+    });
+
+    let allNameInfo = getDBInfoName
+      ? [...nameData, ...getDBInfoName]
+      : [...nameData];
+
+    let formatedNameInfo = allNameInfo?.map((e) => {
+      return {
+        id: e.id,
+        name: e.name,
+        image: e.background_image ? e.background_image : e.image,
+        rating: e.rating,
+        genres: e.genres.map((e) => e.name),
+        platforms: e.platforms.map((e) =>
+          e.platform?.name ? e.platform.name : e
+        ),
+      };
+    });
+
+    return getData;
+  } catch (error) {
+    console.log(error);
+  }
+}; */
 
 const videogameById = async (id) => {
   try {
@@ -126,6 +166,7 @@ const getPlatforms = async () => {
 module.exports = {
   videogamesAll,
   videogameById,
+  /*   videogameByName, */
   getGenres,
   getPlatforms,
 };

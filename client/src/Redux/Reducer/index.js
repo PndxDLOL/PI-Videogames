@@ -71,8 +71,8 @@ function rootReducer(state = initialstate, action) {
     case "FILTER_BY_SCORE":
       const videogamesSortedS =
         action.payload === "asc"
-          ? state.videogames.sort((a, b) => a.rating - b.rating)
-          : state.videogames.sort((a, b) => b.rating - a.rating);
+          ? state.videogames.sort((a, b) => b.rating - a.rating)
+          : state.videogames.sort((a, b) => a.rating - b.rating);
       return {
         ...state,
         videogames: videogamesSortedS,

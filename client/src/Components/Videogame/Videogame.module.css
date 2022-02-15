@@ -1,6 +1,66 @@
 .videogameCard {
-  border: solid 1px;
-  text-decoration: none;
-  padding: 10px 10px;
+  position: relative;
+  border: solid 1px rgb(221, 130, 19);
+  height: 350px;
   width: 250px;
+  overflow: hidden;
+  margin: auto;
+  padding: 10px 30px;
+  border-radius: 2%;
+  background-color: black;
+  color: rgb(221, 130, 19);
+  font-family: "VT323", monospace;
+  font-size: 20px;
+  transition: 2s;
+  text-align: center;
+}
+
+.videogameCard:hover {
+  height: fit-content;
+  width: 250px;
+  box-shadow: 22px 18px 15px -3px rgb(221, 130, 19);
+}
+
+.videogameCard h3 {
+  font-size: 25px;
+  padding: 10px;
+}
+
+.videogameCard img {
+  position: relative;
+  height: 200px;
+  width: 200px;
+  border-radius: 50%;
+  object-fit: cover;
+  margin: 10px auto;
+  transition: all 0.5s ease;
+  border-top: solid 8px rgb(221, 130, 19);
+  border-bottom: solid 8px rgb(221, 130, 19);
+}
+.videogameCard:hover img {
+  border-radius: 5%;
+  border: solid 3px rgb(221, 130, 19);
+}
+.listContain {
+  position: relative;
+  top: 20px;
+  right: 50px;
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+  flex-direction: column;
+  width: 300px;
+  margin-left: 0px;
+}
+
+.listContain p {
+  display: flex;
+  position: relative;
+  left: 25px;
+  margin: 0px;
+}
+
+.list li {
+  display: inline;
+  list-style: none;
 }

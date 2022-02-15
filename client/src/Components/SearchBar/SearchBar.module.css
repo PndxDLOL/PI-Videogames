@@ -1,0 +1,29 @@
+.searchBar {
+  display: flex;
+  justify-content: center;
+  font-family: "VT323", monospace;
+  gap: 10px;
+}
+
+.searchBar input {
+  font-family: "VT323", monospace;
+  font-size: 25px;
+  width: 600px;
+  border-radius: 15px;
+  padding: 8px;
+}
+
+.button {
+  font-family: "VT323", monospace;
+  font-size: 25px;
+  border-radius: 15px;
+  background-color: rgb(221, 130, 19);
+  border: solid 1px rgb(46, 44, 44);
+}
+
+.button:hover {
+  cursor: pointer;
+  background-color: rgb(46, 44, 44);
+  border: solid 1px rgb(221, 130, 19);
+  color: rgb(221, 130, 19);
+}

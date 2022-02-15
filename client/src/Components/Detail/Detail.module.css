@@ -1,0 +1,158 @@
+.fondo {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background: url("https://wallpaperboat.com/wp-content/uploads/2020/03/retro-gaming-02.jpg");
+  width: 100vw;
+  height: 100vh;
+  background-size: 1380px 700px;
+}
+
+.landing {
+  display: flex;
+  position: absolute;
+  width: 100px;
+  top: 3%;
+  left: 3%;
+  text-decoration: none;
+  font-family: "VT323", monospace;
+  color: rgb(221, 130, 19);
+  font-size: 60px;
+  -webkit-text-stroke: 2px rgb(221, 130, 19);
+}
+.landing:hover {
+  transform: translate(-5px, -5px);
+  text-shadow: 5px 5px blueviolet;
+}
+
+.backHome {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 150px;
+  height: 40px;
+  position: absolute;
+  bottom: 10px;
+  left: 83%;
+  text-decoration: none;
+  font-family: "VT323", monospace;
+  font-size: 25px;
+  color: black;
+  background-color: rgb(221, 130, 19);
+  border: solid 2px black;
+  border-radius: 10px;
+  padding: 5px;
+  margin: 25px;
+  box-shadow: 10px 10px blueviolet;
+}
+
+.backHome:hover {
+  transform: translate(5px, 5px);
+  box-shadow: 5px 5px blueviolet;
+}
+
+.container {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  gap: 0px;
+  background-color: rgb(221, 130, 19);
+  width: 800px;
+  height: 600px;
+  font-family: "VT323", monospace;
+  border: solid 3px black;
+  border-radius: 25px;
+  padding: 15px;
+}
+.container h1 {
+  margin: 5px;
+  font-size: 50px;
+}
+
+.detail {
+  width: 750px;
+  height: 280px;
+  padding: 30px;
+  overflow-y: scroll;
+  margin: 15px;
+}
+
+.detail h3 {
+  display: flex;
+  position: relative;
+  top: -30px;
+  justify-content: end;
+  align-items: end;
+}
+
+.detail::-webkit-scrollbar {
+  width: 5px;
+  height: 15px;
+}
+.detail::-webkit-scrollbar-track {
+  -webkit-box-shadow: inset 0 0 6px grey;
+  border-radius: 10px;
+}
+.detail::-webkit-scrollbar-thumb {
+  border-radius: 10px;
+  -webkit-box-shadow: inset 0 0 6px grey;
+}
+
+.visual {
+  display: flex;
+  gap: 50px;
+}
+
+.visual img {
+  display: flex;
+  position: relative;
+  top: 3%;
+  left: 5%;
+  width: 250px;
+  height: 250px;
+  border-radius: 15px;
+}
+
+.visual div {
+  display: flex;
+  flex-direction: column;
+}
+
+.rating {
+  display: flex;
+  position: absolute;
+  color: rgb(162, 17, 17);
+  border: dashed 2px rgb(162, 17, 17);
+  padding: 5px;
+  top: 13%;
+  right: 20%;
+  font-size: 35px;
+  transform: rotate(10deg);
+  animation-name: rating;
+  animation-duration: 3s;
+}
+
+.rating::before {
+  content: "Rating:";
+}
+
+@keyframes rating {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+@keyframes moveButton {
+  from {
+    transform: translateY(100px);
+    opacity: 0;
+  }
+  to {
+    transform: translateY(0px);
+    opacity: 1;
+  }
+}

@@ -1,0 +1,97 @@
+.home {
+  overflow: hidden;
+  background-attachment: fixed;
+  margin: 0px;
+  padding: 0px;
+  justify-content: center;
+  align-items: center;
+}
+
+.cardContainer {
+  position: relative;
+  margin-top: 50px;
+  margin-left: auto;
+  margin-right: auto;
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  width: 1250px;
+  gap: 60px;
+
+  justify-items: center;
+  align-items: center;
+}
+
+.filters {
+  display: flex;
+  justify-content: center;
+  text-align: center;
+  font-family: "VT323", monospace;
+  font-size: 25px;
+  color: white;
+  gap: 15px;
+  margin: 15px;
+}
+
+.filters select {
+  font-family: "VT323", monospace;
+  font-size: 18px;
+  border-radius: 15px;
+}
+
+.toCreate {
+  display: flex;
+  width: 150px;
+  position: relative;
+  top: 15px;
+  left: 80%;
+  text-decoration: none;
+  font-family: "VT323", monospace;
+  font-size: 25px;
+  color: black;
+  background-color: rgb(221, 130, 19);
+  border: solid 2px black;
+  border-radius: 10px;
+  padding: 5px;
+  margin: 25px;
+  box-shadow: 10px 10px blueviolet;
+}
+
+.toCreate:hover {
+  transform: translate(5px, 5px);
+  box-shadow: 5px 5px blueviolet;
+}
+
+.landing {
+  display: flex;
+  position: absolute;
+  top: 3%;
+  left: 3%;
+  text-decoration: none;
+  font-family: "VT323", monospace;
+  color: rgb(221, 130, 19);
+  font-size: 60px;
+  -webkit-text-stroke: 2px rgb(221, 130, 19);
+}
+.landing:hover {
+  transform: translate(-5px, -5px);
+  text-shadow: 5px 5px blueviolet;
+}
+
+.loadGames {
+  display: flex;
+  position: relative;
+  top: -25px;
+  left: 90px;
+  font-family: "VT323", monospace;
+  color: rgb(221, 130, 19);
+  font-size: 20px;
+  background-color: black;
+  border-radius: 15px;
+}
+
+.loadGames:hover {
+  background-color: rgb(221, 130, 19);
+  color: black;
+  transform: translate(-5px, -5px);
+  box-shadow: 5px 5px blueviolet;
+}

@@ -1,0 +1,48 @@
+.container {
+  display: flex;
+  position: relative;
+  left: 38%;
+  justify-content: center;
+  text-align: center;
+  align-items: center;
+  gap: 15px;
+  margin: 50px;
+  font-family: "VT323", monospace;
+  background-color: white;
+  width: 210px;
+  height: 60px;
+  border-radius: 15px;
+  border: solid 2px rgb(221, 130, 19);
+}
+
+.container p {
+  font-size: 25px;
+}
+.container button {
+  background-color: rgb(221, 130, 19);
+  border: solid 1px black;
+  padding: 5px 10px;
+  border-radius: 20%;
+  height: 30px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+}
+.container button svg {
+  width: 10px;
+  color: black;
+}
+
+.container button[disabled] {
+  background-color: #474747;
+  cursor: no-drop;
+}
+
+.container input {
+  height: 25px;
+  width: 30px;
+  text-align: center;
+  border: 1px solid #242424;
+  border-radius: 3px;
+}

@@ -1,19 +1,26 @@
 import React from "react";
-import { Link } from "react-router-dom";
 import styles from "./Videogame.module.css";
 
-export default function Videogame({ id, name, image, genres }) {
+export default function Videogame({ name, image, genres, platforms }) {
   return (
-    <Link to={`/videogames/${id}`}>
-      <div className={styles.videogameCard}>
-        <h3>{name}</h3>
-        <img src={image} alt={name} width="200px" height="  250px" />
-        <ul>
-          {genres.map((e) => {
-            return <li key={e}>{e}</li>;
+    <div className={styles.videogameCard}>
+      <h3>{name}</h3>
+      <img src={image} alt={name} />
+      <div className={styles.listContain}>
+        <p>Genres:</p>
+        <ul className={styles.list}>
+          {genres.map((g) => {
+            return <li key={g}> |{g}|</li>;
+          })}
+        </ul>
+
+        <p>Platforms:</p>
+        <ul className={styles.list}>
+          {platforms.map((p) => {
+            return <li key={p}> |{p}|</li>;
           })}
         </ul>
       </div>
-    </Link>
+    </div>
   );
 }

@@ -3,6 +3,7 @@ import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { getGenres, getPlatforms, postVideogame } from "../../Redux/Actions";
 import { Link } from "react-router-dom";
+import style from "./VideogamePost.module.css";
 
 function validatePost(post) {
   let error = {};
@@ -11,6 +12,12 @@ function validatePost(post) {
   }
   if (!post.description) {
     error.description = "Enter a brief description";
+  }
+  if (
+    !post.image.includes("https://" || "http://") &&
+    !post.image.includes(".jpg" || ".jpeg" || ".png")
+  ) {
+    error.image = "Enter a valid URL";
   }
   if (!post.rating || post.rating < 0 || post.rating > 5) {
     error.rating = "Rating must between 0 and 5";
@@ -36,6 +43,7 @@ export default function VideogamePost() {
     name: "",
     description: "",
     released: "",
+    image: "",
     rating: 0,
     genres: [],
     platforms: [],
@@ -118,134 +126,166 @@ export default function VideogamePost() {
   function handleOnSubmit(e) {
     e.preventDefault();
     dispatch(postVideogame(post));
+    setPost({
+      name: "",
+      description: "",
+      released: "",
+      image: "",
+      rating: 0,
+      genres: [],
+      platforms: [],
+    });
     alert("¡Created!");
   }
 
   return (
-    <div>
-      <form>
-        <div>
-          <label>Name: </label>
-          <input
-            type="text"
-            name="name"
-            value={post.name}
-            onChange={(e) => {
-              handleOnChange(e);
-            }}
-          />
-          {error.name && <p>{error.name}</p>}
-        </div>
-        <div>
-          <label>Image: </label>
-          <input
-            type="text"
-            name="image"
-            value={post.image}
-            onChange={(e) => {
-              handleOnChange(e);
-            }}
-          />
-        </div>
-        <div>
-          <label>Description: </label>
-          <input
-            type="text"
-            name="description"
-            value={post.description}
-            onChange={(e) => {
-              handleOnChange(e);
-            }}
-          />
-          {error.description && <p>{error.description}</p>}
-        </div>
-        <div>
-          <label>Released: </label>
-          <input
-            type="date"
-            name="released"
-            value={post.released}
-            onChange={(e) => {
-              handleOnChange(e);
-            }}
-          />
-          {error.released && <p>{error.released}</p>}
-        </div>
-        <div>
-          <label>Rating: </label>
-          <input
-            type="number"
-            min="0"
-            max="5"
-            name="rating"
-            value={post.rating}
-            onChange={(e) => {
-              handleOnChange(e);
-            }}
-          />
-          {error.rating && <p>{error.rating}</p>}
-        </div>
-        <div>
-          <label>Genres: </label>
-          <select
-            defaultValue="default"
-            onChange={(e) => {
-              handleOnSelectG(e);
+    <div className={style.fondo}>
+      <Link to="/" className={style.landing}>
+        <h3>Arcade Zone</h3>
+      </Link>
+      <div className={style.form}>
+        <form>
+          <div className={style.name}>
+            <label>Name: </label>
+            <input
+              type="text"
+              name="name"
+              value={post.name}
+              onChange={(e) => {
+                handleOnChange(e);
+              }}
+            />
+          </div>
+          <div className={style.image}>
+            <label>Image: </label>
+            <input
+              type="url"
+              name="image"
+              value={post.image}
+              onChange={(e) => {
+                handleOnChange(e);
+              }}
+            />
+          </div>
+          <div className={style.description}>
+            <label>Description: </label>
+            <textarea
+              name="description"
+              value={post.description}
+              onChange={(e) => {
+                handleOnChange(e);
+              }}
+            />
+          </div>
+          <div className={style.released}>
+            <label>Released: </label>
+            <input
+              type="date"
+              name="released"
+              value={post.released}
+              onChange={(e) => {
+                handleOnChange(e);
+              }}
+            />
+          </div>
+          <div className={style.rating}>
+            <label>Rating: </label>
+            <input
+              type="number"
+              min="0"
+              max="5"
+              name="rating"
+              value={post.rating}
+              onChange={(e) => {
+                handleOnChange(e);
+              }}
+            />
+          </div>
+          <div className={style.genres}>
+            <label>Genres: </label>
+            <select
+              defaultValue="default"
+              onChange={(e) => {
+                handleOnSelectG(e);
+              }}
+            >
+              <option value="default" disabled>
+                Choose Genres:
+              </option>
+              {genres?.map((genre) => (
+                <option value={genre.name} key={genre.name}>
+                  {genre.name}
+                </option>
+              ))}
+            </select>
+          </div>
+          <div className={style.platforms}>
+            <label>Platforms: </label>
+            <select
+              defaultValue="default"
+              onChange={(e) => {
+                handleOnSelectP(e);
+              }}
+            >
+              <option value="default" disabled>
+                Choose Platforms:
+              </option>
+              {platforms?.map((platform) => (
+                <option value={platform} key={platform}>
+                  {platform}
+                </option>
+              ))}
+            </select>
+          </div>
+          <button
+            className={style.submit}
+            disabled={Object.keys(error).length || !post.name}
+            type="submit"
+            onClick={(e) => {
+              handleOnSubmit(e);
             }}
           >
-            <option value="default" disabled>
-              Choose Genres:
-            </option>
-            {genres?.map((genre) => (
-              <option value={genre.name} key={genre.name}>
-                {genre.name}
-              </option>
-            ))}
-          </select>
-          {error.genres && <p>{error.genres}</p>}
-          {post.genres?.map((g) => (
-            <div key={g}>
-              <p>{g}</p>
-              <button onClick={() => handleDeleteG(g)}>X</button>
-            </div>
-          ))}
-        </div>
+            ¡Create!
+          </button>
+        </form>
         <div>
-          <label>Platforms: </label>
-          <select
-            defaultValue="default"
-            onChange={(e) => {
-              handleOnSelectP(e);
-            }}
-          >
-            <option value="default" disabled>
-              Choose Platforms:
-            </option>
-            {platforms?.map((platform) => (
-              <option value={platform} key={platform}>
-                {platform}
-              </option>
-            ))}
-          </select>
-          {error.platforms && <p>{error.platforms}</p>}
-          {post.platforms?.map((p) => (
-            <div key={p}>
-              <p>{p}</p>
-              <button onClick={() => handleDeleteP(p)}>X</button>
-            </div>
-          ))}
+          {error.name && <p className={style.errorName}>{error.name}</p>}
+          {error.image && <p className={style.errorImage}>{error.image}</p>}
+          {error.description && (
+            <p className={style.errorDescription}>{error.description}</p>
+          )}
+          {error.released && (
+            <p className={style.errorReleased}>{error.released}</p>
+          )}
+          {error.rating && <p className={style.errorRating}>{error.rating}</p>}
         </div>
-        <button
-          type="submit"
-          onClick={(e) => {
-            handleOnSubmit(e);
-          }}
-        >
-          ¡Create!
-        </button>
-      </form>
-      <Link to="/home">
-        <button>Go Home</button>
+        <div className={style.selected}>
+          <p className={style.titleSelect}>Genres:</p>
+          <div className={style.containerSelect}>
+            {post.genres?.map((g) => (
+              <div className={style.added} key={g}>
+                <p>{g}</p>
+                <button onClick={() => handleDeleteG(g)}>X</button>
+              </div>
+            ))}
+          </div>
+          <p className={style.titleSelect}>Platforms:</p>
+          <div className={style.containerSelect}>
+            {post.platforms?.map((p) => (
+              <div className={style.added} key={p}>
+                <p>{p}</p>
+                <button onClick={() => handleDeleteP(p)}>X</button>
+              </div>
+            ))}
+          </div>
+          {error.genres && <p className={style.errorGenres}>{error.genres}</p>}
+          {error.platforms && (
+            <p className={style.errorPlatforms}>{error.platforms}</p>
+          )}
+        </div>
+      </div>
+      <Link to="/home" className={style.backHome}>
+        <h3>Back to home</h3>
       </Link>
     </div>
   );

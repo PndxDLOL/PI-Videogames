@@ -1,3 +1,14 @@
+body {
+  text-align: center;
+  background: url("https://p4.wallpaperbetter.com/wallpaper/605/767/593/polybius-arcade-arcade-machine-pixel-art-artwork-hd-wallpaper-preview.jpg");
+  background-position: relative;
+  background-repeat: no-repeat;
+  background-size: 100% 100%;
+  background-attachment: fixed;
+  margin: 0px;
+  padding: 0px;
+}
+
 .App {
   text-align: center;
 }
@@ -26,6 +37,12 @@
 
 .App-link {
   color: #61dafb;
+}
+@import url("https://fonts.googleapis.com/css2?family=VT323&display=swap");
+
+@font-face {
+  font-family: "VT323", monospace;
+  src: url("https://fonts.googleapis.com/css2?family=VT323&display=swap");
 }
 
 @keyframes App-logo-spin {

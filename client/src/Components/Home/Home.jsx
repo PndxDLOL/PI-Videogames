@@ -15,6 +15,8 @@ import Videogame from "../Videogame/Videogame";
 import Paginado from "../Paginado/Paginado";
 import SearchBar from "../SearchBar/SearchBar";
 
+import style from "./Home.module.css";
+
 export default function Home() {
   const dispatch = useDispatch();
 
@@ -22,18 +24,13 @@ export default function Home() {
   const allGenres = useSelector((state) => state.genres);
   const allPlatforms = useSelector((state) => state.platforms);
   const [order, setOrder] = useState("");
-  const [currentPage, setCurrentPage] = useState(1);
-  const [videogamesPerPage] = useState(15);
-  const indexOfLastVideogame = currentPage * videogamesPerPage;
-  const indexOfFirstVideogame = indexOfLastVideogame - videogamesPerPage;
+  const [page, setPage] = useState(1);
+  const [videogamesPerPage /* , setVideofamesPerPage */] = useState(15);
+  const maxTotal = allVideogames.length / videogamesPerPage;
   const currentVideogames = allVideogames.slice(
-    indexOfFirstVideogame,
-    indexOfLastVideogame
+    (page - 1) * videogamesPerPage,
+    (page - 1) * videogamesPerPage + videogamesPerPage
   );
-
-  const paginado = (pageNumber) => {
-    setCurrentPage(pageNumber);
-  };
 
   useEffect(() => {
     dispatch(getVideogames());
@@ -48,30 +45,38 @@ export default function Home() {
 
   function handleFilterGenre(e) {
     dispatch(filterByGenre(e.target.value));
+    setPage(1);
   }
 
   function handleFilterPlatform(e) {
     dispatch(filterByPlatform(e.target.value));
+    setPage(1);
   }
 
   function handleFilterName(e) {
     dispatch(filterByName(e.target.value));
-    setCurrentPage(1);
+    setPage(1);
     setOrder(`Ordenado ${e.target.value}`);
     return order;
   }
 
   function handleFilterScore(e) {
     dispatch(filterByScore(e.target.value));
-    setCurrentPage(1);
+    setPage(1);
     setOrder(`Ordenado ${e.target.value}`);
     return order;
   }
 
   return (
-    <div>
-      <Link to="/videogame">Create a Videogame</Link>
+    <div className={style.home}>
+      <Link to="/" className={style.landing}>
+        Arcade Zone
+      </Link>
+      <Link to="/videogame" className={style.toCreate}>
+        Create a Videogame
+      </Link>
       <button
+        className={style.loadGames}
         onClick={(e) => {
           handleOnClick(e);
         }}
@@ -79,21 +84,24 @@ export default function Home() {
         Cargar Videojuegos
       </button>
       <SearchBar />
-      <div>
+      <div className={style.filters}>
+        <label>Order Name:</label>
         <select defaultValue="default" onClick={(e) => handleFilterName(e)}>
           <option value="default" disabled>
-            Order Name:
+            Order:
           </option>
           <option value="asc">A-Z</option>
           <option value="desc">Z-A</option>
         </select>
+        <label>Order Rating:</label>
         <select defaultValue="default" onClick={(e) => handleFilterScore(e)}>
           <option value="default" disabled>
-            Order Rating:
+            Order:
           </option>
           <option value="asc">Más puntuado</option>
           <option value="desc">Menos puntuado</option>
         </select>
+        <label>Genres:</label>
         <select defaultValue="default" onClick={(e) => handleFilterGenre(e)}>
           <option value="default" disabled>
             Genres:
@@ -105,9 +113,10 @@ export default function Home() {
             </option>
           ))}
         </select>
+        <label>Platforms:</label>
         <select defaultValue="default" onClick={(e) => handleFilterPlatform(e)}>
           <option value="default" disabled>
-            Platforms
+            Platforms:
           </option>
           <option value="all">All</option>
           {allPlatforms?.map((platform) => (
@@ -117,21 +126,24 @@ export default function Home() {
           ))}
         </select>
       </div>
-      <Paginado
-        videogamesPerPage={videogamesPerPage}
-        allVideogames={allVideogames.length}
-        paginado={paginado}
-      />
-      <div>
+      <Paginado page={page} setPage={setPage} maxTotal={maxTotal} />
+      <div className={style.cardContainer}>
         {currentVideogames?.map((videogame) => {
           return (
-            <Videogame
-              key={videogame.id}
-              id={videogame.id}
-              name={videogame.name}
-              image={videogame.image}
-              genres={videogame.genres}
-            />
+            <div key={videogame.id}>
+              <Link
+                to={`/videogames/${videogame.id}`}
+                style={{ textDecoration: "none" }}
+              >
+                <Videogame
+                  key={videogame.id}
+                  name={videogame.name}
+                  image={videogame.image}
+                  genres={videogame.genres}
+                  platforms={videogame.platforms}
+                />
+              </Link>
+            </div>
           );
         })}
       </div>

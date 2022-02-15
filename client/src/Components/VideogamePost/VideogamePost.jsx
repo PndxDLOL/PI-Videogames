@@ -17,7 +17,7 @@ function validatePost(post) {
     !post.image.includes("https://" || "http://") &&
     !post.image.includes(".jpg" || ".jpeg" || ".png")
   ) {
-    error.image = "Enter a valid URL";
+    error.image = "Enter a valid URL (.jpg, .jpeg, .png)";
   }
   if (!post.rating || post.rating < 0 || post.rating > 5) {
     error.rating = "Rating must between 0 and 5";

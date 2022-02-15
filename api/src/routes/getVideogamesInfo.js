@@ -1,7 +1,7 @@
 const axios = require("axios");
 const { API_KEY } = process.env;
 const { Videogame, Genres } = require("../db");
-/* const { Op } = require("sequelize"); */
+const { Op } = require("sequelize");
 
 const videogamesAll = async () => {
   try {
@@ -46,14 +46,13 @@ const videogamesAll = async () => {
   }
 };
 
-/* const videogameByName = async (name) => {
+const videogameByName = async (name) => {
   try {
-    let getData = await axios.get(
-      `https://api.rawg.io/api/games?key=${API_KEY}&search=${name}`
-    ).data;
-    console.log(getData);
-
-    let nameData = getData.results;
+    let getData = (
+      await axios.get(
+        `https://api.rawg.io/api/games?key=${API_KEY}&search=${name}`
+      )
+    ).data.results;
 
     let getDBInfoName = await Videogame.findAll({
       include: Genres,
@@ -63,8 +62,8 @@ const videogamesAll = async () => {
     });
 
     let allNameInfo = getDBInfoName
-      ? [...nameData, ...getDBInfoName]
-      : [...nameData];
+      ? [...getData, ...getDBInfoName]
+      : [...getData];
 
     let formatedNameInfo = allNameInfo?.map((e) => {
       return {
@@ -79,11 +78,11 @@ const videogamesAll = async () => {
       };
     });
 
-    return getData;
+    return formatedNameInfo;
   } catch (error) {
     console.log(error);
   }
-}; */
+};
 
 const videogameById = async (id) => {
   try {
@@ -166,7 +165,7 @@ const getPlatforms = async () => {
 module.exports = {
   videogamesAll,
   videogameById,
-  /*   videogameByName, */
+  videogameByName,
   getGenres,
   getPlatforms,
 };

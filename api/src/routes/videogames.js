@@ -5,9 +5,8 @@ const { Videogame, Genres } = require("../db");
 const {
   videogamesAll,
   videogameById,
-  /*   videogameByName, */
+  videogameByName,
 } = require("../routes/getVideogamesInfo");
-/* const {} */
 
 router.get("/", async (req, res) => {
   let allVideogames = await videogamesAll();
@@ -21,9 +20,11 @@ router.get("/", async (req, res) => {
     }
   } else {
     try {
-      let videogamesByName = await allVideogames.filter((e) =>
+      let videogamesByName = await videogameByName(name);
+
+      /* await allVideogames.filter((e) =>
         e.name.toLowerCase().includes(name.toString().toLowerCase())
-      );
+      ); */
       videogamesByName
         ? res.status(200).send(videogamesByName)
         : res.status(204).send({ message: "Not get videogame by name" });

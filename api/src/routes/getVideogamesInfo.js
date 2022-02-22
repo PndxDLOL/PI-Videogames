@@ -85,25 +85,43 @@ const videogameByName = async (name) => {
 };
 
 const videogameById = async (id) => {
-  try {
-    let info = (
-      await axios.get(`https://api.rawg.io/api/games/${id}?key=${API_KEY}`)
-    ).data;
+  if (
+    id.match(
+      /^[a-f0-9]{8}-?[a-f0-9]{4}-?4[a-f0-9]{3}-?[89ab][a-f0-9]{3}-?[a-f0-9]{12}$/i
+    )
+  ) {
+    try {
+      let dbSearch = await Videogame.findAll({
+        where: { id },
+        include: [
+          { model: Genres, attributes: ["name"], through: { attributes: [] } },
+        ],
+      });
+      return dbSearch[0];
+    } catch (error) {
+      console.log(error);
+    }
+  } else {
+    try {
+      let info = (
+        await axios.get(`https://api.rawg.io/api/games/${id}?key=${API_KEY}`)
+      ).data;
 
-    let obj = {
-      id: info.id,
-      name: info.name,
-      image: info.background_image,
-      genres: info.genres.map((e) => e.name),
-      description: info.description_raw,
-      released: info.released,
-      rating: info.rating,
-      platforms: info.platforms.map((e) => e.platform.name),
-    };
+      let obj = {
+        id: info.id,
+        name: info.name,
+        image: info.background_image,
+        genres: info.genres.map((e) => e.name),
+        description: info.description_raw,
+        released: info.released,
+        rating: info.rating,
+        platforms: info.platforms.map((e) => e.platform.name),
+      };
 
-    return obj;
-  } catch (error) {
-    console.log(error);
+      return obj;
+    } catch (error) {
+      console.log(error);
+    }
   }
 };
 

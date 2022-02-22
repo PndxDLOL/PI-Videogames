@@ -24,6 +24,11 @@ function rootReducer(state = initialstate, action) {
         ...state,
         videogameDetail: action.payload,
       };
+    case "RESET_DETAILS":
+      return {
+        ...state,
+        videogameDetail: action.payload,
+      };
     case "GET_GENRES":
       return {
         ...state,
@@ -60,7 +65,7 @@ function rootReducer(state = initialstate, action) {
 
     case "FILTER_BY_NAME":
       const videogamesSortedN =
-        action.payload === "asc"
+        action.payload === "ascN"
           ? state.videogames.sort((a, b) => a.name.localeCompare(b.name))
           : state.videogames.sort((a, b) => b.name.localeCompare(a.name));
       return {
@@ -70,7 +75,7 @@ function rootReducer(state = initialstate, action) {
 
     case "FILTER_BY_SCORE":
       const videogamesSortedS =
-        action.payload === "asc"
+        action.payload === "ascS"
           ? state.videogames.sort((a, b) => b.rating - a.rating)
           : state.videogames.sort((a, b) => a.rating - b.rating);
       return {

@@ -16,6 +16,7 @@ import Paginado from "../Paginado/Paginado";
 import SearchBar from "../SearchBar/SearchBar";
 
 import style from "./Home.module.css";
+import GameOver from "../GameOver/GameOver";
 
 export default function Home() {
   const dispatch = useDispatch();
@@ -25,7 +26,7 @@ export default function Home() {
   const allPlatforms = useSelector((state) => state.platforms);
   const [order, setOrder] = useState("");
   const [page, setPage] = useState(1);
-  const [videogamesPerPage /* , setVideofamesPerPage */] = useState(15);
+  const [videogamesPerPage] = useState(15);
   const maxTotal = allVideogames.length / videogamesPerPage;
   const currentVideogames = allVideogames.slice(
     (page - 1) * videogamesPerPage,
@@ -83,26 +84,26 @@ export default function Home() {
       >
         Cargar Videojuegos
       </button>
-      <SearchBar />
+      <SearchBar setPage={setPage} />
       <div className={style.filters}>
         <label>Order Name:</label>
-        <select defaultValue="default" onClick={(e) => handleFilterName(e)}>
+        <select defaultValue="default" onChange={(e) => handleFilterName(e)}>
           <option value="default" disabled>
             Order:
           </option>
-          <option value="asc">A-Z</option>
-          <option value="desc">Z-A</option>
+          <option value="ascN">A-Z</option>
+          <option value="descN">Z-A</option>
         </select>
         <label>Order Rating:</label>
-        <select defaultValue="default" onClick={(e) => handleFilterScore(e)}>
+        <select defaultValue="default" onChange={(e) => handleFilterScore(e)}>
           <option value="default" disabled>
             Order:
           </option>
-          <option value="asc">Más puntuado</option>
-          <option value="desc">Menos puntuado</option>
+          <option value="ascS">Más puntuado</option>
+          <option value="descS">Menos puntuado</option>
         </select>
         <label>Genres:</label>
-        <select defaultValue="default" onClick={(e) => handleFilterGenre(e)}>
+        <select defaultValue="default" onChange={(e) => handleFilterGenre(e)}>
           <option value="default" disabled>
             Genres:
           </option>
@@ -114,7 +115,10 @@ export default function Home() {
           ))}
         </select>
         <label>Platforms:</label>
-        <select defaultValue="default" onClick={(e) => handleFilterPlatform(e)}>
+        <select
+          defaultValue="default"
+          onChange={(e) => handleFilterPlatform(e)}
+        >
           <option value="default" disabled>
             Platforms:
           </option>
@@ -128,24 +132,28 @@ export default function Home() {
       </div>
       <Paginado page={page} setPage={setPage} maxTotal={maxTotal} />
       <div className={style.cardContainer}>
-        {currentVideogames?.map((videogame) => {
-          return (
-            <div key={videogame.id}>
-              <Link
-                to={`/videogames/${videogame.id}`}
-                style={{ textDecoration: "none" }}
-              >
-                <Videogame
-                  key={videogame.id}
-                  name={videogame.name}
-                  image={videogame.image}
-                  genres={videogame.genres}
-                  platforms={videogame.platforms}
-                />
-              </Link>
-            </div>
-          );
-        })}
+        {allVideogames.length === 0 ? (
+          <GameOver />
+        ) : (
+          currentVideogames.map((videogame) => {
+            return (
+              <div key={videogame.id}>
+                <Link
+                  to={`/videogames/${videogame.id}`}
+                  style={{ textDecoration: "none" }}
+                >
+                  <Videogame
+                    key={videogame.id}
+                    name={videogame.name}
+                    image={videogame.image}
+                    genres={videogame.genres}
+                    platforms={videogame.platforms}
+                  />
+                </Link>
+              </div>
+            );
+          })
+        )}
       </div>
     </div>
   );

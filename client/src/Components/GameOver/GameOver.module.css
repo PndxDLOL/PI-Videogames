@@ -1,0 +1,29 @@
+.gameOver {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  position: relative;
+  left: 55%;
+  color: red;
+  font-family: "VT323", monospace;
+}
+
+.gameOver h1 {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 150px;
+  margin: 0px;
+  position: relative;
+  top: -50px;
+  width: 600px;
+}
+
+.gameOver h3 {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 50px;
+  margin: 0px;
+}

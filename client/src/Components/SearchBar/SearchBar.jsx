@@ -4,7 +4,7 @@ import { useDispatch } from "react-redux";
 import { getVideogameByName } from "../../Redux/Actions";
 import style from "./SearchBar.module.css";
 
-export default function SearchBar() {
+export default function SearchBar({ setPage }) {
   const dispatch = useDispatch();
   const [name, setName] = useState("");
 
@@ -17,6 +17,15 @@ export default function SearchBar() {
     e.preventDefault();
     dispatch(getVideogameByName(name));
     setName("");
+    setPage(1);
+  }
+
+  function onKeyInput(e) {
+    if (e.keyCode === 13) {
+      dispatch(getVideogameByName(name));
+      setName("");
+      setPage(1);
+    }
   }
 
   return (
@@ -24,6 +33,10 @@ export default function SearchBar() {
       <input
         className={style.input}
         type="text"
+        value={name}
+        onKeyDown={(e) => {
+          onKeyInput(e);
+        }}
         placeholder="Search Videogame"
         onChange={(e) => {
           handleOnChange(e);

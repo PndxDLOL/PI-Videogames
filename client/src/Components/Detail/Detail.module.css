@@ -82,8 +82,8 @@
   display: flex;
   position: relative;
   top: -30px;
-  justify-content: end;
-  align-items: end;
+  justify-content: flex-end;
+  align-items: flex-end;
 }
 
 .detail::-webkit-scrollbar {

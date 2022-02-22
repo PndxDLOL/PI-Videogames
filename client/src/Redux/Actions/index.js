@@ -47,6 +47,13 @@ export function getDetails(id) {
   };
 }
 
+export function resetDetails(payload) {
+  return {
+    type: "RESET_DETAILS",
+    payload,
+  };
+}
+
 export function getGenres() {
   return async function (dispatch) {
     try {
